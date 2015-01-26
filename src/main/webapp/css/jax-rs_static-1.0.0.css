@@ -41,6 +41,10 @@
   .jaxrs-static-content {
     padding-top: 1em;
   }
+
+  .device-detection-content > * > * {
+    margin-bottom: .5em;
+  }
 }
 
 @media screen and (min-width: 48em) {
@@ -79,4 +83,28 @@
 .jaxrs-static-content {
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.device-detection-header {
+  background: #10466B;
+	color: white;
+  padding: .5em 1em;
+}
+
+.device-detection-header * {
+	margin: 0;
+  padding: 0;
+}
+
+.device-detection-content {
+  margin: 1em 0 2em;
+}
+
+.device-detection-content > * {
+  margin-bottom: .5em;
+}
+
+.device-detection-label {
+	font-size: 110%;
+	font-weight: bold;
 }

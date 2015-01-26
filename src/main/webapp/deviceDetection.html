@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US" dir="ltr"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US" dir="ltr"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US" dir="ltr"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en-US" dir="ltr"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en-US" dir="ltr"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="cleartype" content="on" />
+<link rel="shortcut icon" href="images/favicon.ico" />
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" />
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css" />
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css" />
+<!--<![endif]-->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+<![endif]-->
+
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="css/jax-rs_static-old-ie-1.0.0-min.css" />
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<link rel="stylesheet" href="css/jax-rs_static-1.0.0-min.css" />
+<!--<![endif]-->
+<title>JAX-RS Static Device Detection</title>
+</head>
+<body class="pure-g">
+<header class="pure-u-1">
+<h2>JAX-RS Static Device Detection</h2>
+</header>
+<article class="pure-u-1 pure-u-md-1-5 pure-menu pure-menu-open jaxrs-static-menu">
+<a href="#" class="pure-menu-heading">Select Feature</a>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li class="pure-menu-selected"><a href="#">Device Detection</a></li>
+<li><a href="#">Dynamic Content</a></li>
+</ul>
+</article>
+<section class="pure-u-1  pure-u-md-4-5 jaxrs-static-content">
+<div class="device-detection-header">
+<h3>Client-Side Device Detection Information</h3>
+</div>
+<div id="clientSideContentNA" class="device-detection-content">N/A</div>
+<div id="clientSideContent" class="device-detection-content" hidden="hidden"></div>
+<div class="device-detection-header">
+<h3>Server-Side Device Detection Information</h3>
+</div>
+<div id="serverSideContentNA" class="device-detection-content">N/A</div>
+<div id="serverSideContent" class="device-detection-content" hidden="hidden"></div>
+</section>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/deviceDetection-1.0.0-min.js"></script>
+<script type="text/javascript">
+function showClientSideContent() {
+  if (!jQuery || (jQuery === null) || !deviceDetection || (deviceDetection === null)) {
+    return;
+  }  
+  jQuery('#clientSideContentNA').attr('hidden', 'hidden');
+  jQuery('#clientSideContent').empty().attr('hidden', null);
+  var row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.isMobile</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.isMobile + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.formFactor</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.formFactor + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.completeDeviceName</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.completeDeviceName + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.isHighDensity</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.isHighDensity + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.isRetina</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.isRetina + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.clientWidth</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.clientWidth + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.canResizeBrowserWindow</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.canResizeBrowserWindow + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.orientation</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + deviceDetection.orientation + '</div>'));
+  jQuery('#clientSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">deviceDetection.htmlClass</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">(' + deviceDetection.htmlClass + ')</div>'));
+  jQuery('#clientSideContent').append(row);
+}
+function hideClientSideContent() {
+  if (!jQuery || (jQuery === null)) {
+    return;
+  }  
+  jQuery('#clientSideContent').empty().attr('hidden', 'hidden');
+  jQuery('#clientSideContentNA').attr('hidden', null);
+}
+function getServerSideContent() {
+  if (!deviceDetectionGet || (typeof(deviceDetectionGet) !== 'function')) {
+    return;
+  }
+  deviceDetectionGet(showServerSideContent);  
+}
+function showServerSideContent(data) {
+  if (!jQuery || (jQuery === null) || !data || (data === null)) {
+    return;
+  }  
+  jQuery('#serverSideContentNA').attr('hidden', 'hidden');
+  jQuery('#serverSideContent').empty().attr('hidden', null);
+  var row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isMobile</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isMobile + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isApp</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isApp + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isDesktop</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isDesktop + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isFeaturePhone</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isFeaturePhone + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isOtherMobile</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isOtherMobile + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isOtherNonMobile</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isOtherNonMobile + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isRobot</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isRobot + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSmartPhone</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSmartPhone + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSmartTv</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSmartTv + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isTablet</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isTablet + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.getCompleteDeviceName</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.completeDeviceName + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isHighDensity</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isHighDensity + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isRetina</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isRetina + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.getClientWidth</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.clientWidth + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCanResizeBrowserWindow</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.canResizeBrowserWindow + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isLanscape</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isLanscape + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isPortrait</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isPortrait + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isApplicationcacheAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isApplicationcacheAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isAudioAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isAudioAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isBackgroundsizeAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isBackgroundsizeAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isBorderimageAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isBorderimageAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isBorderradiusAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isBorderradiusAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isBoxshadowAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isBoxshadowAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCanvasAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCanvasAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCanvastextAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCanvastextAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCssanimationsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCssanimationsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCsscolumnsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCsscolumnsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCssgradientsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCssgradientsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCssreflectionsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCssreflectionsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCsstransformsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCsstransformsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCsstransforms3dAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCsstransforms3dAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isCsstransitionsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isCsstransitionsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isDraganddropAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isDraganddropAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isFlexboxAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isFlexboxAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isFlexboxlegacyAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isFlexboxlegacyAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isFontfaceAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isFontfaceAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isGeneratedcontentAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isGeneratedcontentAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isGeolocationAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isGeolocationAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isHashchangeAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isHashchangeAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isHistoryAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isHistoryAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isHslaAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isHslaAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isIndexeddbAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isIndexeddbAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isInlinesvgAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isInlinesvgAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isJavaScriptAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isJavaScriptAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isLocalstorageAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isLocalstorageAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isMultiplebgsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isMultiplebgsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isOpacityAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isOpacityAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isPostmessageAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isPostmessageAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isRgbaAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isRgbaAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSessionstorageAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSessionstorageAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSmilAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSmilAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSvgAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSvgAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isSvgclippathsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isSvgclippathsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isTextshadowAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isTextshadowAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isTouchAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isTouchAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isVideoAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isVideoAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isWebglAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isWebglAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isWebsocketsAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isWebsocketsAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isWebsqldatabaseAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isWebsqldatabaseAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+  row = jQuery('<div class="pure-g"></div>');
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-1-3 device-detection-label">DeviceDetectionSession.isWebworkersAvailable</div>'));
+  row.append(jQuery('<div class="pure-u-1  pure-u-md-2-3">' + data.isWebworkersAvailable + '</div>'));
+  jQuery('#serverSideContent').append(row);
+}
+function hideServerSideContent() {
+  if (!jQuery || (jQuery === null)) {
+    return;
+  }  
+  jQuery('#serverSideContent').empty().attr('hidden', 'hidden');
+  jQuery('#serverSideContentNA').attr('hidden', null);
+}
+showClientSideContent();
+getServerSideContent();
+if (jQuery && (jQuery !== null)) {
+  jQuery(window).on('resize', function() {
+    hideClientSideContent();
+    hideServerSideContent();
+    setTimeout(function() {
+      showClientSideContent();
+      getServerSideContent();
+    }, 250);
+  });
+}
+</script>
+</body>
+</html>

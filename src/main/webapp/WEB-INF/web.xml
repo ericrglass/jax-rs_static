@@ -44,4 +44,7 @@
   <filter-name>ResponseHeaderExpiresFilter</filter-name>
   <url-pattern>*.ico</url-pattern>
  </filter-mapping>
+ <session-config>
+  <session-timeout>30</session-timeout>
+ </session-config>
 </web-app>

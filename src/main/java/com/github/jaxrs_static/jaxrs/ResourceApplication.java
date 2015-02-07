@@ -17,9 +17,12 @@ public class ResourceApplication extends Application {
 
 		// JAX-RS Resources
 		jaxrsClasses.add(DeviceDetectionResource.class);
+		jaxrsClasses.add(ProductResource.class);
 
 		// JAX-RS Providers, MessageBodyWriters, and MessageBodyReaders
 		jaxrsClasses.add(DeviceDetectionSessionReaderWriter.class);
+		jaxrsClasses.add(ProductReaderWriter.class);
+		jaxrsClasses.add(ProductsListReaderWriter.class);
 
 		return jaxrsClasses;
 	}

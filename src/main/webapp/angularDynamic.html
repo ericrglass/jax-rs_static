@@ -36,7 +36,7 @@
 <!--<![endif]-->
 <title>Dynamic Content with angular</title>
 </head>
-<body class="pure-g">
+<body class="pure-g" ng-app="productsApp">
 <header class="pure-u-1">
 <h2>Dynamic Content with angular</h2>
 </header>
@@ -56,35 +56,312 @@
 </article>
 <section class="pure-u-1  pure-u-md-4-5 jaxrs-static-content">
 
-<div class="pure-u-1 pure-table jaxrs-static-table">
+<div hidden="hidden">https://docs.angularjs.org/guide/ie</div>
+
+<div class="pure-u-1 pure-table jaxrs-static-table" ng-controller="ProductResourceCtrl">
   <div class="pure-u-1 jaxrs-static-caption">Product</div>
   <div class="pure-g jaxrs-static-table-header">
-    <div class="pure-u-1 pure-u-md-4-24"><span>Code</span></div>
+    <div class="pure-u-1 pure-u-md-3-24"><span>Code</span></div>
     <div class="pure-u-1 pure-u-md-10-24"><span>Description</span></div>
-    <div class="pure-u-1 pure-u-md-4-24"><span>Color</span></div>
+    <div class="pure-u-1 pure-u-md-3-24"><span>Color</span></div>
     <div class="pure-u-1 pure-u-md-3-24"><span>Cost</span></div>
     <div class="pure-u-1 pure-u-md-3-24"><span>Quantity</span></div>
+    <div class="pure-u-1 pure-u-md-2-24"><span style="font-weight: normal;"><a id="add" href="javascript:void(0);" class="addproduct">Add</a></span></div>
   </div>
-  <div class="jaxrs-static-table-body">
-    <div class="pure-g jaxrs-static-table-row jaxrs-static-table-row-odd">
-      <div class="pure-u-1 pure-u-md-4-24"><span class="jaxrs-static-table-label">Code:</span><span>ABC</span></div>
-      <div class="pure-u-1 pure-u-md-10-24"><span class="jaxrs-static-table-label">Description:</span><span>ABC Description</span></div>
-      <div class="pure-u-1 pure-u-md-4-24"><span class="jaxrs-static-table-label">Color:</span><span>Red</span></div>
-      <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Cost:</span><span>10.99</span></div>
-      <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Quantity:</span><span>25</span></div>
-    </div>
-    <div class="pure-g jaxrs-static-table-row jaxrs-static-table-row-last">
-      <div class="pure-u-1 pure-u-md-4-24"><span class="jaxrs-static-table-label">Code:</span><span>123</span></div>
-      <div class="pure-u-1 pure-u-md-10-24"><span class="jaxrs-static-table-label">Description:</span><span>123 Description</span></div>
-      <div class="pure-u-1 pure-u-md-4-24"><span class="jaxrs-static-table-label">Color:</span><span>White</span></div>
-      <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Cost:</span><span>4.99</span></div>
-      <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Quantity:</span><span>100</span></div>
-    </div>
+  <div id="jaxrs-static-table-body" class="jaxrs-static-table-body" hidden="hidden">
+	  <div class="pure-g jaxrs-static-table-row" ng-repeat="product in products" data-product-id="{{product.id}}">
+	    <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Code:</span>
+	      <span>{{product.code}}</span>
+	      <div hidden="hidden"><input type="text" ng-model="product.code" /></div></div>
+	    <div class="pure-u-1 pure-u-md-10-24"><span class="jaxrs-static-table-label">Description:</span>
+	      <span>{{product.description}}</span>
+	      <div hidden="hidden"><input type="text" ng-model="product.description" /></div></div>
+	    <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Color:</span>
+	      <span>{{product.color}}</span>
+	      <div hidden="hidden"><input type="text" ng-model="product.color" /></div></div>
+	    <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Cost:</span>
+	      <span>{{product.cost}}</span>
+	      <div hidden="hidden"><input type="number" step=".01" ng-model="product.cost" /></div></div>
+	    <div class="pure-u-1 pure-u-md-3-24"><span class="jaxrs-static-table-label">Quantity:</span>
+	      <span>{{product.quantity}}</span>
+	      <div hidden="hidden"><input type="number" step=".01" ng-model="product.quantity" /></div></div>
+	    <div class="pure-u-1 pure-u-md-2-24 productlinks"><span>
+	      <span class="edit"><a href="javascript:void(0);" class="editproduct">Edit</a></span>
+	      <span class="delete"><a href="javascript:void(0);" class="deleteproduct">Delete</a></span>
+	      <span class="save" hidden="hidden"><a href="javascript:void(0);" class="saveproduct">Save</a></span>
+	      <span class="cancel" hidden="hidden"><a href="javascript:void(0);" class="cancelproduct">Cancel</a></span>
+	    </span></div>
+	  </div>
   </div>
 </div>
 
-https://docs.angularjs.org/guide/ie
-
 </section>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/productResource-1.0.0-min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.min.js"></script>
+<script type="text/javascript">
+var productsApp = angular.module('productsApp', []);
+productsApp.directive('addproduct', function() {
+  return {
+    restrict: "C", //see an attribute 'deleteproduct'. restrict: "C" would look for an element with class 'deleteproduct'
+    link: function(scope, element, attr) { // scope is at the app level, because element defined outside of repeat
+      element.click(function() {
+        var product = {
+          id: 0,
+          code: '',
+          description: '',
+          color: '',
+          cost: 0.0,
+          quantity: 0.0
+        };
+        scope.addProduct(product);
+        return false;
+      });
+    }
+  };
+});
+productsApp.directive('deleteproduct', function() {
+  return {
+    restrict: "C",
+    link: function(scope, element, attr) { // scope is at the product level, because of the elements defined in repeat
+      element.click(function() {
+        var answer = confirm('Do you really want to delete this product?');
+        if (!answer) {
+          return false;
+        }
+        var productId = scope.$parent.getId(scope);
+        $(this).closest('div').parent().remove();
+        scope.$parent.removeProduct(productId);
+        if (productId > 0) {
+          productResourceDelete(productId, null);
+        }
+        return false;
+      });
+    }
+  };
+});
+productsApp.directive('editproduct', function() {
+  return {
+    restrict: "C",
+    link: function(scope, element, attr) {
+      element.click(function() {
+        scope.$parent.toggleLinks($(this).closest('div'));
+        var $row = scope.$parent.get$RowElement($(this));
+        $row.children().each(function() {
+          if ($(this).children().length !== 3) {
+            return;
+          }
+          $(this).children(':eq(1)').attr('hidden', 'hidden');
+          $(this).children(':eq(2)').attr('hidden', null);
+        });
+        $row.find('input:first').focus();
+        var backupProduct = {};
+        backupProduct.code = scope.$parent.getCode(scope);
+        backupProduct.description = scope.$parent.getDescription(scope);
+        backupProduct.color = scope.$parent.getColor(scope);
+        backupProduct.cost = scope.$parent.getCost(scope);
+        backupProduct.quantity = scope.$parent.getQuantity(scope);
+        $row.data('backupProduct', backupProduct);
+        return false;
+      });
+    }
+  };
+});
+productsApp.directive('saveproduct', function() {
+  return {
+    restrict: "C",
+    link: function(scope, element, attr) {
+      element.click(function() {
+        scope.$parent.toggleLinks($(this).closest('div'));
+        var $row = scope.$parent.get$RowElement($(this));
+        $row.children().each(function() {
+          if ($(this).children().length !== 3) {
+            return;
+          }
+          $(this).children(':eq(1)').attr('hidden', null);
+          $(this).children(':eq(2)').attr('hidden', 'hidden');
+        });
+        productResourcePost(scope.$parent.getId(scope),
+            scope.$parent.getCode(scope),
+            scope.$parent.getDescription(scope),
+            scope.$parent.getColor(scope),
+            scope.$parent.getCost(scope),
+            scope.$parent.getQuantity(scope),
+            function(ajaxResults) {
+		          if (!ajaxResults || (ajaxResults === null)) {
+		            return;
+		          }
+		          scope.product.id = ajaxResults.id;
+		          scope.product.code = ajaxResults.code;
+		          scope.product.description = ajaxResults.description; 
+		          scope.product.color = ajaxResults.color;
+		          scope.product.cost = ajaxResults.cost;
+		          scope.product.quantity = ajaxResults.quantity; 
+		          scope.$digest();
+        });
+        return false;
+      });
+    }
+  };
+});
+productsApp.directive('cancelproduct', function() {
+  return {
+    restrict: "C",
+    link: function(scope, element, attr) {
+      element.click(function() {
+        var $row = scope.$parent.get$RowElement($(this));
+        if (scope.$parent.getId(scope) <= 0) {
+          $row.remove();
+          scope.$parent.removeProduct(-1);
+          return false;
+        }
+        scope.$parent.toggleLinks($(this).closest('div'));
+        $row.children().each(function() {
+          if ($(this).children().length !== 3) {
+            return;
+          }
+          $(this).children(':eq(1)').attr('hidden', null);
+          $(this).children(':eq(2)').attr('hidden', 'hidden');
+        });
+        var backupProduct = $row.data('backupProduct');
+        if (backupProduct === null) {
+          return false;
+        }
+        scope.product.code = backupProduct.code;
+        scope.product.description = backupProduct.description; 
+        scope.product.color = backupProduct.color;
+        scope.product.cost = backupProduct.cost;
+        scope.product.quantity = backupProduct.quantity; 
+        scope.$digest();
+        return false;
+      });
+    }
+  };
+});
+productsApp.controller('ProductResourceCtrl', function ($scope) {
+  $scope.products = [];
+  $scope.getId = function(productScope) {
+    var id = productScope.product.id;
+    if (id !== null) {
+      try {
+        return parseInt(id.toString());
+      } catch(e) {}
+    }
+    return 0;
+  };
+  $scope.getCode = function(productScope) {
+    var code = productScope.product.code;
+    if (code === null) {
+      return '';
+    }
+    return code.toString();
+  };
+  $scope.getDescription = function(productScope) {
+    var description = productScope.product.description;
+    if (description === null) {
+      return '';
+    }
+    return description.toString();
+  };
+  $scope.getColor = function(productScope) {
+    var color = productScope.product.color;
+    if (color === null) {
+      return '';
+    }
+    return color.toString();
+  };
+  $scope.getCost = function(productScope) {
+    var cost = productScope.product.cost;
+    if (cost !== null) {
+      try {
+        return parseFloat(cost.toString());
+      } catch(e) {}
+    }
+    return 0.0;
+  };
+  $scope.getQuantity = function(productScope) {
+    var quantity = productScope.product.quantity;
+    if (quantity !== null) {
+      try {
+        return parseFloat(quantity.toString());
+      } catch(e) {}
+    }
+    return 0.0;
+  };
+  $scope.addProduct = function(product) {
+    if (!product || (product == null)) {
+      return;
+    }
+    $scope.products.push(product);
+    $scope.$apply(function() {
+      $scope.products = $scope.products;
+    });
+    $scope.updateView();
+    $('div.productlinks:last').find('span.edit a').click();
+  };
+  $scope.removeProduct = function(productId) {
+    $scope.updateView();
+    var productsArr = eval($scope.products);
+    if (productsArr.length === 0) {
+      return;
+    }
+    if (productId <= 0) {
+      $scope.products.splice(productsArr.length - 1, 1);
+    } else {
+      var index = -1;
+      for(var i = 0; i < productsArr.length; i++) {
+        if (productsArr[i].id === productId) {
+          index = i;
+          break;
+        }
+      }
+      if (index !== -1) {
+        $scope.products.splice(index, 1);
+      }
+    }
+  };
+  $scope.updateView = function() {
+    var productsArr = $('div.jaxrs-static-table-row');
+    var index = 1;
+    $('div.jaxrs-static-table-row').each(function() {
+      $(this).removeClass('jaxrs-static-table-row-odd jaxrs-static-table-row-last');
+      if (index % 2 !== 0) {
+        $(this).addClass('jaxrs-static-table-row-odd');
+      }
+      if (index === productsArr.length) {
+        $(this).addClass('jaxrs-static-table-row-last');
+      }
+      index++;
+    });
+  };
+  $scope.toggleLinks = function($linksParent) {
+    if ($linksParent.find('span.edit').attr('hidden') === 'hidden') {
+      $linksParent.find('span.edit').attr('hidden', null);
+      $linksParent.find('span.delete').attr('hidden', null);
+      $linksParent.find('span.save').attr('hidden', 'hidden');
+      $linksParent.find('span.cancel').attr('hidden', 'hidden');
+    } else {
+      $linksParent.find('span.edit').attr('hidden', 'hidden');
+      $linksParent.find('span.delete').attr('hidden', 'hidden');
+      $linksParent.find('span.save').attr('hidden', null);
+      $linksParent.find('span.cancel').attr('hidden', null);
+    }
+  };
+  $scope.get$RowElement = function($cellElement) {
+    return $cellElement.closest('div').parent();
+  };
+  productResourceList(function(ajaxResults) {
+    if (ajaxResults && (ajaxResults !== null)) {
+      $scope.$apply(function() {
+        $scope.products = ajaxResults;
+      });
+      $('#jaxrs-static-table-body').attr('hidden', null);
+      $scope.updateView();
+    }
+  });
+});
+</script>
+
 </body>
 </html>
